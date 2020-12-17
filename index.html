@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+</head>
+<body>
+    <div class="window">
+        <h3>Presiona el boton para Suscribirte</h3>
+        <button id="btn">Suscribirse</button>
+    </div>
+    <script src="http://localhost:3000/push.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+         const socket = io();
+        const btn = document.querySelector("#btn");
+        let subscribers = [];
+        let id
+        socket.on("connect", () => {
+            id = socket.id
+            });
+        
+        
+        const active = (event) => { 
+            if(btn.style.background == 'red'){
+                btn.style.background = "transparent"
+                 return socket.emit('unsubscribed', id)
+             };
+        
+            btn.style.background = "red"
+            subscribers.push(id)
+            return socket.emit("notification active", id);     
+        };
+        
+        
+        btn.addEventListener("click", active);
+        
+        // Push.Permission.request(onGranted, onDenied);
+        socket.on('news', msg => {
+            console.log(msg)
+            Push.create(msg.title, {
+                body: msg.body,
+                timeout: 4000,
+                onClick: function () {
+                window.focus();
+                this.close();
+    }
+});
+        })
+        
+        
+        </script>
+</body>
+</html>
