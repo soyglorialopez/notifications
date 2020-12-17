@@ -7,8 +7,8 @@ _El visitante podra subcrirse o desubscribirse_ <br>
 
 ### Como esta creado el Programa 🔧
   * <strong> Modulos Nativos de Node</strong> <br>
-   * "http": para la creacion del server<br>
-   *  "fs": lectura del los archivos <br>
+    * "http": para la creacion del server<br>
+     *  "fs": lectura del los archivos <br>
 
  * <strong> Dependecias</strong> <br>
    * "socke.io": socket.io para la comunicacion bidireccional <br>
